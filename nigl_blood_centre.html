@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NIGL Blood Centre – Every Drop Counts. Every Life Matters.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --red:        #C0152A;
+      --red-dark:   #8B0E1E;
+      --red-light:  #E8253C;
+      --red-pale:   #FFF0F2;
+      --white:      #FFFFFF;
+      --off-white:  #FAF7F7;
+      --ink:        #1A0A0C;
+      --ink-soft:   #4A2530;
+      --border:     #E8D0D4;
+      --shadow:     rgba(192,21,42,0.15);
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--off-white); color: var(--ink); line-height: 1.6; overflow-x: hidden; }
+
+    /* ── NAVBAR ── */
+    nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 2px solid var(--red); box-shadow: 0 2px 20px var(--shadow); }
+    .nav-inner { max-width: 1160px; margin: 0 auto; padding: 0 24px; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; cursor: pointer; }
+    .logo img { height: 52px; width: 52px; object-fit: contain; }
+    .logo-text { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--red-dark); letter-spacing: -0.01em; }
+    .logo-text span { color: var(--red-light); }
+    .nav-links { display: flex; gap: 8px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--ink-soft); font-weight: 500; font-size: 0.92rem; padding: 8px 16px; border-radius: 6px; transition: background 0.2s, color 0.2s; }
+    .nav-links a:hover { background: var(--red-pale); color: var(--red); }
+    .nav-links a.active { background: var(--red); color: var(--white); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; background: none; border: none; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--red); border-radius: 2px; }
+
+    /* ── HERO ── */
+    .hero { background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(139,14,30,0.55) 0%, transparent 70%), linear-gradient(135deg, var(--red-dark) 0%, var(--red) 50%, var(--red-light) 100%); color: var(--white); min-height: 560px; display: flex; align-items: center; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; right: -80px; top: -60px; width: 420px; height: 420px; background: rgba(255,255,255,0.06); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform: rotate(-20deg); }
+    .hero::after { content: ''; position: absolute; right: 60px; bottom: -100px; width: 260px; height: 260px; background: rgba(255,255,255,0.04); border-radius: 50%; }
+    .hero-inner { max-width: 1160px; margin: 0 auto; padding: 80px 24px; position: relative; z-index: 2; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 30px; padding: 6px 16px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; }
+    .hero-eyebrow::before { content: '❤'; font-size: 0.85rem; }
+    h1 { font-family: var(--font-display); font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 900; line-height: 1.1; max-width: 640px; margin-bottom: 20px; letter-spacing: -0.02em; }
+    h1 em { font-style: normal; color: rgba(255,255,255,0.75); }
+    .hero-sub { font-size: 1.05rem; opacity: 0.88; max-width: 500px; margin-bottom: 36px; font-weight: 300; line-height: 1.75; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 30px; border-radius: 8px; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; cursor: pointer; border: 2px solid transparent; transition: all 0.25s; text-decoration: none; }
+    .btn-primary { background: var(--white); color: var(--red); border-color: var(--white); }
+    .btn-primary:hover { background: transparent; color: var(--white); }
+    .btn-outline { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.55); }
+    .btn-outline:hover { background: var(--white); color: var(--red); border-color: var(--white); }
+    .btn-red { background: var(--red); color: var(--white); border-color: var(--red); }
+    .btn-red:hover { background: var(--red-dark); border-color: var(--red-dark); }
+
+    /* ── TRUST BAR ── */
+    .trust-bar { background: var(--white); border-bottom: 1px solid var(--border); }
+    .trust-bar-inner { max-width: 1160px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: repeat(4, 1fr); }
+    .trust-item { padding: 20px 24px; display: flex; align-items: center; gap: 14px; border-right: 1px solid var(--border); }
+    .trust-item:last-child { border-right: none; }
+    .trust-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .trust-label { font-size: 0.75rem; color: var(--ink-soft); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+    .trust-value { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 80px 24px; }
+    .section-inner { max-width: 1160px; margin: 0 auto; }
+    .section-tag { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+    .section-title { font-family: var(--font-display); font-size: clamp(1.7rem, 3.5vw, 2.6rem); font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.02em; }
+    .section-sub { font-size: 0.98rem; color: var(--ink-soft); max-width: 560px; margin-bottom: 48px; line-height: 1.75; }
+
+    /* ── ABOUT ── */
+    .about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; margin-bottom: 64px; }
+    .about-text h2 { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.02em; }
+    .about-text p { font-size: 0.96rem; color: var(--ink-soft); line-height: 1.8; margin-bottom: 14px; }
+    .about-highlight { display: flex; gap: 12px; align-items: flex-start; background: var(--red-pale); border-left: 3px solid var(--red); border-radius: 0 8px 8px 0; padding: 14px 18px; margin: 18px 0; }
+    .about-highlight p { margin: 0; font-size: 0.92rem; color: var(--ink); font-weight: 500; }
+    .img-placeholder { background: linear-gradient(135deg, var(--red-pale), var(--border)); border-radius: 16px; aspect-ratio: 4/3; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; border: 1.5px solid var(--border); }
+    .img-placeholder span { font-size: 4rem; }
+    .img-placeholder p { font-size: 0.82rem; color: var(--ink-soft); font-weight: 500; text-align: center; padding: 0 20px; }
+
+    /* person cards */
+    .people-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 52px; }
+    .person-card { background: var(--off-white); border-radius: 16px; overflow: hidden; border: 1.5px solid var(--border); box-shadow: 0 4px 24px var(--shadow); transition: transform 0.25s, box-shadow 0.25s; }
+    .person-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px var(--shadow); }
+    .person-photo { width: 100%; aspect-ratio: 4/3; object-fit: cover; object-position: top center; display: block; }
+    .person-photo-placeholder { width: 100%; aspect-ratio: 4/3; background: linear-gradient(135deg, var(--red-pale), var(--border)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+    .person-photo-placeholder span { font-size: 3.5rem; }
+    .person-photo-placeholder p { font-size: 0.78rem; color: var(--ink-soft); font-weight: 500; }
+    .person-info { padding: 24px; }
+    .person-tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 5px; }
+    .person-name { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+    .person-role { font-size: 0.86rem; color: var(--ink-soft); font-weight: 500; margin-bottom: 10px; }
+    .person-bio { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.7; }
+
+    /* renova strip */
+    .renova-strip { background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%); border-radius: 16px; padding: 40px 48px; display: flex; align-items: center; gap: 40px; margin-top: 60px; color: var(--white); }
+    .renova-strip-text h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
+    .renova-strip-text p { font-size: 0.93rem; opacity: 0.88; line-height: 1.7; max-width: 560px; }
+    .renova-badges { display: flex; gap: 16px; flex-wrap: wrap; flex-shrink: 0; }
+    .renova-badge { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 12px; padding: 18px 22px; text-align: center; min-width: 100px; }
+    .renova-badge .num { font-family: var(--font-display); font-size: 1.7rem; font-weight: 900; }
+    .renova-badge .lbl { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; opacity: 0.8; text-transform: uppercase; }
+
+    /* ── SERVICES ── */
+    .services { background: var(--off-white); }
+    .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .table-wrap { overflow-x: auto; border-radius: 12px; border: 1.5px solid var(--border); box-shadow: 0 4px 24px var(--shadow); }
+    table { width: 100%; border-collapse: collapse; min-width: 340px; }
+    thead tr { background: var(--red); color: var(--white); }
+    thead th { padding: 13px 18px; text-align: left; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; }
+    tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--red-pale); }
+    tbody td { padding: 13px 18px; font-size: 0.92rem; }
+    .blood-type { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--red); color: var(--white); font-family: var(--font-display); font-size: 0.83rem; font-weight: 700; }
+    .badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 11px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+    .badge-available { background: #E8F8EE; color: #1A6B3C; } .badge-available::before { background: #2DB562; }
+    .badge-low { background: #FFF4E0; color: #7A4A00; } .badge-low::before { background: #F5A623; }
+    .badge-critical { background: #FEE8EA; color: #8B0E1E; } .badge-critical::before { background: var(--red); }
+    .service-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .service-item { display: flex; gap: 14px; align-items: flex-start; background: var(--white); border-radius: 12px; padding: 18px; border: 1.5px solid var(--border); transition: box-shadow 0.2s, border-color 0.2s; }
+    .service-item:hover { box-shadow: 0 4px 16px var(--shadow); border-color: var(--red); }
+    .service-icon { font-size: 1.4rem; flex-shrink: 0; width: 42px; height: 42px; background: var(--red-pale); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+    .service-info h4 { font-family: var(--font-display); font-size: 0.98rem; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+    .service-info p { font-size: 0.83rem; color: var(--ink-soft); line-height: 1.6; }
+
+    /* ── WHY DONATE ── */
+    .why { background: var(--white); }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card { background: var(--off-white); border-radius: 14px; padding: 34px 26px; border: 1.5px solid var(--border); transition: transform 0.25s, box-shadow 0.25s; position: relative; overflow: hidden; }
+    .card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, var(--red-dark), var(--red-light)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px var(--shadow); }
+    .card:hover::after { transform: scaleX(1); }
+    .card-icon { width: 54px; height: 54px; background: var(--red-pale); border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 20px; }
+    .card h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-bottom: 9px; }
+    .card p { font-size: 0.91rem; color: var(--ink-soft); line-height: 1.75; }
+
+    /* ── CTA BAND ── */
+    .cta-band { background: linear-gradient(135deg, var(--red-dark) 0%, var(--red) 100%); color: var(--white); text-align: center; padding: 72px 24px; }
+    .cta-band h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; margin-bottom: 14px; letter-spacing: -0.02em; }
+    .cta-band p { font-size: 1rem; opacity: 0.85; margin-bottom: 32px; max-width: 480px; margin-left: auto; margin-right: auto; font-weight: 300; }
+    .cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── CONTACT ── */
+    .contact-section { background: var(--off-white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: start; }
+    .contact-card { background: var(--white); border-radius: 12px; padding: 26px; border: 1.5px solid var(--border); margin-bottom: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+    .contact-card h4 { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+    .contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 9px; }
+    .contact-item:last-child { margin-bottom: 0; }
+    .contact-item .ci { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+    .contact-item p { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.6; }
+    .contact-item a { color: var(--red); text-decoration: none; font-weight: 500; }
+    .contact-item a:hover { text-decoration: underline; }
+    .hours-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 0.87rem; }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row .day { color: var(--ink-soft); }
+    .hours-row .time { font-weight: 600; color: var(--ink); }
+    .open-badge { display: inline-flex; align-items: center; gap: 6px; background: #E8F8EE; color: #1A6B3C; border-radius: 20px; padding: 4px 12px; font-size: 0.75rem; font-weight: 700; }
+    .open-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #2DB562; }
+    .map-wrap { border-radius: 12px; overflow: hidden; border: 1.5px solid var(--border); height: 220px; margin-top: 18px; }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; }
+    .contact-form-box { background: var(--white); border-radius: 14px; padding: 34px; border: 1.5px solid var(--border); box-shadow: 0 4px 24px var(--shadow); }
+    .contact-form-box h3 { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; margin-bottom: 5px; }
+    .form-sub { font-size: 0.87rem; color: var(--ink-soft); margin-bottom: 24px; }
+    .form-type-btns { display: flex; gap: 10px; margin-bottom: 20px; }
+    .type-btn { flex: 1; padding: 10px; border: 1.5px solid var(--border); border-radius: 8px; background: var(--off-white); cursor: pointer; font-family: var(--font-body); font-size: 0.87rem; font-weight: 600; color: var(--ink-soft); transition: all 0.2s; }
+    .type-btn.active, .type-btn:hover { background: var(--red); color: var(--white); border-color: var(--red); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.76rem; font-weight: 600; color: var(--ink-soft); margin-bottom: 5px; letter-spacing: 0.03em; text-transform: uppercase; }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 13px; border: 1.5px solid var(--border); border-radius: 8px; font-family: var(--font-body); font-size: 0.92rem; color: var(--ink); background: var(--off-white); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,21,42,0.1); }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--ink); color: rgba(255,255,255,0.65); padding: 56px 24px 28px; }
+    .footer-inner { max-width: 1160px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-logo-text { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: #fff; }
+    .footer-logo-text span { color: rgba(255,100,120,1); }
+    .footer-tagline { font-size: 0.87rem; line-height: 1.7; margin-top: 12px; max-width: 240px; }
+    .footer-col h4 { color: var(--white); font-size: 0.76rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 8px; }
+    .footer-col ul li a { text-decoration: none; color: rgba(255,255,255,0.55); font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: rgba(255,130,150,1); }
+    .footer-ci { display: flex; gap: 10px; margin-bottom: 10px; font-size: 0.88rem; }
+    .footer-ci .ic { flex-shrink: 0; margin-top: 1px; }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .footer-bottom p { font-size: 0.8rem; }
+    .footer-bottom a { color: rgba(255,130,150,1); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .trust-bar-inner { grid-template-columns: repeat(2,1fr); }
+      .trust-item:nth-child(2) { border-right: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 32px; }
+      .people-grid { grid-template-columns: 1fr 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .renova-strip { flex-direction: column; gap: 24px; padding: 32px; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; position: absolute; top: 68px; left: 0; right: 0; background: var(--white); border-bottom: 2px solid var(--border); flex-direction: column; padding: 12px 24px 20px; gap: 4px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .hero-btns, .cta-btns { flex-direction: column; align-items: flex-start; }
+      .cta-btns { align-items: center; }
+      .btn { justify-content: center; }
+      .trust-bar-inner { grid-template-columns: 1fr 1fr; }
+      .trust-item { padding: 14px; }
+      .people-grid { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="logo">
+      <img src="nigl-logo.jpeg" alt="NIGL Blood Centre"/>
+      <span class="logo-text">NIGL <span>Blood Centre</span></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home"     data-section="home"     class="active">Home</a></li>
+      <li><a href="#about"    data-section="about">About</a></li>
+      <li><a href="#services" data-section="services">Services</a></li>
+      <li><a href="#contact"  data-section="contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="menuBtn" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══ HERO ════════════════════════════════════════════ -->
+<section id="home">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Hospital-Based Blood Bank · Banjara Hills, Hyderabad</div>
+      <h1>Every Drop Counts.<br/><em>Every Life</em> Matters.</h1>
+      <p class="hero-sub">
+        NIGL Blood Centre operates within Renova NIGL Hospital — backed by 15+ years of
+        healthcare excellence across Telangana. Safe, screened blood available 24 × 7.
+      </p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="openForm('donate')">❤ &nbsp;Donate Now</button>
+        <button class="btn btn-outline" onclick="openForm('request')">🩸 &nbsp;Request Blood</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trust Bar -->
+  <div class="trust-bar">
+    <div class="trust-bar-inner">
+      <div class="trust-item">
+        <span class="trust-icon">🏥</span>
+        <div><div class="trust-label">Blood Bank Type</div><div class="trust-value">Hospital-Based</div></div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">🕐</span>
+        <div><div class="trust-label">Availability</div><div class="trust-value">24 × 7, All Days</div></div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">✅</span>
+        <div><div class="trust-label">Accreditation</div><div class="trust-value">NABH Group</div></div>
+      </div>
+      <div class="trust-item">
+        <span class="trust-icon">📍</span>
+        <div><div class="trust-label">Location</div><div class="trust-value">Banjara Hills, Hyd</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT ════════════════════════════════════════════ -->
+<section class="section about" id="about">
+  <div class="section-inner">
+
+    <div class="about-grid">
+      <div class="about-text">
+        <span class="section-tag">Who We Are</span>
+        <h2>A Blood Bank Born Inside a Hospital</h2>
+        <p>NIGL Blood Centre is a licensed, hospital-based blood bank operating within
+        <strong>Renova NIGL Hospital</strong>, Road No. 12, Banjara Hills, Hyderabad.
+        Being embedded within a full-service hospital means every unit of blood we collect,
+        screen, and store is immediately accessible to patients in critical need — with no delays.</p>
+        <div class="about-highlight">
+          <span>🩺</span>
+          <p>We serve not just NIGL Hospital patients, but also support partner hospitals,
+          cancer care centres, and emergency cases across Hyderabad and Telangana.</p>
+        </div>
+        <p>Every unit is tested for HIV, Hepatitis B &amp; C, Malaria, Syphilis, and other
+        transfusion-transmissible infections — ensuring the highest standards of blood safety
+        for every recipient.</p>
+      </div>
+      <div class="img-placeholder">
+        <span>🩸</span>
+        <p>Add a blood bank / hospital photo here</p>
+      </div>
+    </div>
+
+    <!-- Leadership -->
+    <span class="section-tag">Leadership &amp; Medical Team</span>
+    <h2 class="section-title" style="margin-bottom:8px;">The People Behind NIGL Blood Centre</h2>
+    <p class="section-sub">Guided by experienced healthcare leaders committed to safe blood banking and community welfare across Hyderabad.</p>
+
+    <div class="people-grid">
+      <!-- Sridhar Guduru -->
+      <div class="person-card">
+        <div class="person-photo-placeholder">
+          <span>👤</span>
+          <p>Add photo: sridhar_guduru.png</p>
+        </div>
+        <div class="person-info">
+          <div class="person-tag">Blood Bank Leadership</div>
+          <div class="person-name">Mr. Sridhar Guduru</div>
+          <div class="person-role">Main Stakeholder &amp; Managing Partner, NIGL Blood Centre</div>
+          <p class="person-bio">Mr. Sridhar Guduru is the driving force behind NIGL Blood Centre's operations, bringing deep expertise in healthcare management and a commitment to making safe blood accessible to every patient across Hyderabad.</p>
+        </div>
+      </div>
+
+      <!-- Dr. Raghavendra Rao -->
+      <div class="person-card">
+        <img src="raghavendra_rao.png" alt="Dr. R V Raghavendra Rao" class="person-photo"/>
+        <div class="person-info">
+          <div class="person-tag">Medical Leadership</div>
+          <div class="person-name">Dr. R V Raghavendra Rao</div>
+          <div class="person-role">Surgical Gastroenterologist, Renova NIGL Hospital</div>
+          <p class="person-bio">A senior consultant at Renova NIGL Hospital, Dr. Raghavendra Rao provides clinical oversight for the blood centre — ensuring every transfusion decision is backed by evidence-based, patient-first care.</p>
+        </div>
+      </div>
+
+      <!-- Dr. Sridhar Peddireddy -->
+      <div class="person-card">
+        <img src="sridhar.png" alt="Dr. Sridhar Peddireddy" class="person-photo"/>
+        <div class="person-info">
+          <div class="person-tag">Group Leadership</div>
+          <div class="person-name">Dr. Sridhar Peddireddy</div>
+          <div class="person-role">Managing Director, Renova Group of Hospitals</div>
+          <p class="person-bio">Under Dr. Peddireddy's leadership, Renova Group has grown to 11 hospitals across India. His vision of accessible, quality healthcare — recognised by Forbes India and Femina — underpins everything NIGL Blood Centre stands for.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Renova strip -->
+    <div class="renova-strip">
+      <div class="renova-strip-text">
+        <h3>Backed by the Renova Group of Hospitals</h3>
+        <p>NIGL Blood Centre operates under the umbrella of Renova Group — NABH-accredited, with 500+ doctors, 70+ specialties and a legacy of over 2,00,000 successful treatments. Our blood bank meets the same rigorous clinical standards as every Renova facility.</p>
+      </div>
+      <div class="renova-badges">
+        <div class="renova-badge"><div class="num">11</div><div class="lbl">Hospitals</div></div>
+        <div class="renova-badge"><div class="num">500+</div><div class="lbl">Doctors</div></div>
+        <div class="renova-badge"><div class="num">70+</div><div class="lbl">Specialties</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ SERVICES ══════════════════════════════════════════ -->
+<section class="section services" id="services">
+  <div class="section-inner">
+    <span class="section-tag">What We Offer</span>
+    <h2 class="section-title">Our Services</h2>
+    <p class="section-sub">From whole blood to specialised components — safe, screened, and available around the clock.</p>
+
+    <div class="services-grid">
+      <!-- Blood table -->
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:14px;">🩸 Live Blood Stock</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Group</th><th>Status</th><th>Units</th></tr></thead>
+            <tbody>
+              <tr><td><span class="blood-type">A+</span></td><td><span class="badge badge-available">Available</span></td><td>48</td></tr>
+              <tr><td><span class="blood-type">A−</span></td><td><span class="badge badge-low">Low</span></td><td>9</td></tr>
+              <tr><td><span class="blood-type">B+</span></td><td><span class="badge badge-available">Available</span></td><td>62</td></tr>
+              <tr><td><span class="blood-type">B−</span></td><td><span class="badge badge-critical">Critical</span></td><td>2</td></tr>
+              <tr><td><span class="blood-type">O+</span></td><td><span class="badge badge-available">Available</span></td><td>74</td></tr>
+              <tr><td><span class="blood-type">O−</span></td><td><span class="badge badge-low">Low</span></td><td>7</td></tr>
+              <tr><td><span class="blood-type">AB+</span></td><td><span class="badge badge-available">Available</span></td><td>31</td></tr>
+              <tr><td><span class="blood-type">AB−</span></td><td><span class="badge badge-critical">Critical</span></td><td>1</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.78rem;color:var(--ink-soft);margin-top:10px;">* Stock updated daily. Call for emergency availability.</p>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn btn-red" onclick="openForm('request')" style="padding:11px 22px;font-size:0.87rem;">🩸 Request Blood</button>
+          <button class="btn" onclick="openForm('donate')" style="padding:11px 22px;font-size:0.87rem;background:var(--white);color:var(--red);border:1.5px solid var(--red);">❤ Donate Blood</button>
+        </div>
+      </div>
+
+      <!-- Service list -->
+      <div>
+        <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:14px;">🏥 Blood Banking Services</h3>
+        <ul class="service-list">
+          <li class="service-item">
+            <div class="service-icon">🔴</div>
+            <div class="service-info"><h4>Whole Blood Collection</h4><p>Voluntary and replacement donations accepted. Full screening and cross-matching performed on every unit.</p></div>
+          </li>
+          <li class="service-item">
+            <div class="service-icon">🧪</div>
+            <div class="service-info"><h4>Component Separation</h4><p>Separation into Red Blood Cells, Platelets, Plasma, and Cryoprecipitate for targeted patient therapy.</p></div>
+          </li>
+          <li class="service-item">
+            <div class="service-icon">🛡️</div>
+            <div class="service-info"><h4>Infectious Disease Screening</h4><p>Every unit tested for HIV, HBsAg, HCV, Malaria, and Syphilis as per NBTC guidelines.</p></div>
+          </li>
+          <li class="service-item">
+            <div class="service-icon">🚑</div>
+            <div class="service-info"><h4>Emergency Blood Supply</h4><p>24 × 7 emergency issue for trauma, surgery, cancer care, and obstetric emergencies.</p></div>
+          </li>
+          <li class="service-item">
+            <div class="service-icon">📋</div>
+            <div class="service-info"><h4>Donor Registration &amp; Records</h4><p>Lifetime donor records maintained. Voluntary donor pool for scheduled repeat donations.</p></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHY DONATE ══════════════════════════════════════ -->
+<section class="section why">
+  <div class="section-inner">
+    <span class="section-tag">Why It Matters</span>
+    <h2 class="section-title">Why Donate Blood?</h2>
+    <p class="section-sub">Blood cannot be manufactured — it can only come from generous donors like you. Here's what your single donation achieves.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🩺</div>
+        <h3>One Donation, Three Lives</h3>
+        <p>A single whole blood donation is separated into red cells, platelets, and plasma — each component saving a different patient in critical need.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏥</div>
+        <h3>Support Critical Care</h3>
+        <p>Accident victims, cancer patients on chemotherapy, surgical patients, and mothers during childbirth all depend on a steady blood supply every single day.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💪</div>
+        <h3>Good for Your Health</h3>
+        <p>Regular donation reduces excess iron, stimulates new blood cell production, and includes a free health screening — as beneficial for donors as for recipients.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA BAND ════════════════════════════════════════ -->
+<section class="cta-band">
+  <h2>Ready to Save a Life Today?</h2>
+  <p>Walk in to NIGL Blood Centre at Renova NIGL Hospital, Banjara Hills. No appointment needed — open 24 × 7, every day of the year.</p>
+  <div class="cta-btns">
+    <button class="btn btn-primary" onclick="openForm('donate')">❤ &nbsp;Donate Blood</button>
+    <button class="btn btn-outline" onclick="openForm('request')">🩸 &nbsp;Request Blood</button>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══════════════════════════════════════════ -->
+<section class="section contact-section" id="contact">
+  <div class="section-inner">
+    <span class="section-tag">Get In Touch</span>
+    <h2 class="section-title">Contact Us</h2>
+    <p class="section-sub">For blood requests, donations, or any enquiry — we're available 24 × 7. Walk in or call us directly.</p>
+
+    <div class="contact-grid">
+      <!-- Info -->
+      <div>
+        <div class="contact-card">
+          <h4>📍 Address</h4>
+          <div class="contact-item">
+            <span class="ci">🏥</span>
+            <p>NIGL Blood Centre, Renova NIGL Hospital<br/>Plot No. 344A, Road No. 12<br/>Venkateswara Colony, Banjara Hills<br/>Hyderabad, Telangana – 500034</p>
+          </div>
+        </div>
+        <div class="contact-card">
+          <h4>📞 Phone &amp; Email</h4>
+          <div class="contact-item"><span class="ci">📞</span><p><a href="tel:+917032383777">+91 70323 83777</a> — Blood Bank Direct</p></div>
+          <div class="contact-item"><span class="ci">🏥</span><p><a href="tel:04023333333">040 2333 3333</a> — Renova NIGL Hospital</p></div>
+          <div class="contact-item"><span class="ci">✉️</span><p><a href="mailto:info.nigl@renovahospitals.com">info.nigl@renovahospitals.com</a></p></div>
+        </div>
+        <div class="contact-card">
+          <h4>⏰ Working Hours</h4>
+          <span class="open-badge">Open Now</span>
+          <div style="margin-top:12px;">
+            <div class="hours-row"><span class="day">Blood Bank</span><span class="time">24 Hours · 7 Days</span></div>
+            <div class="hours-row"><span class="day">Emergency Issue</span><span class="time">Always Available</span></div>
+            <div class="hours-row"><span class="day">Donor Registration</span><span class="time">8:00 AM – 8:00 PM</span></div>
+            <div class="hours-row"><span class="day">Camp Enquiries</span><span class="time">9:00 AM – 6:00 PM</span></div>
+          </div>
+        </div>
+        <div class="map-wrap">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.573!2d78.44684!3d17.42472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb977700000000%3A0x1!2sRoad+No.12+Banjara+Hills+Hyderabad!5e0!3m2!1sen!2sin!4v1" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form-box">
+        <h3 id="formTitle">Donate Blood</h3>
+        <p class="form-sub" id="formSub">Register your interest to donate at NIGL Blood Centre. Our team will confirm your appointment.</p>
+        <div class="form-type-btns">
+          <button class="type-btn active" id="btnDonate" onclick="switchForm('donate')">❤ Donate Blood</button>
+          <button class="type-btn" id="btnRequest" onclick="switchForm('request')">🩸 Request Blood</button>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Full Name *</label><input type="text" placeholder="Your full name"/></div>
+          <div class="form-group"><label>Phone *</label><input type="tel" placeholder="+91 XXXXX XXXXX"/></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>Blood Group</label>
+            <select>
+              <option value="">Select group</option>
+              <option>A+</option><option>A−</option><option>B+</option><option>B−</option>
+              <option>O+</option><option>O−</option><option>AB+</option><option>AB−</option>
+            </select>
+          </div>
+          <div class="form-group"><label>Preferred Date</label><input type="date"/></div>
+        </div>
+        <div class="form-group" id="unitsGroup" style="display:none;">
+          <label>Units Required</label>
+          <input type="number" placeholder="e.g. 2" min="1" max="10"/>
+        </div>
+        <div class="form-group" id="hospitalGroup" style="display:none;">
+          <label>Hospital / Patient Name</label>
+          <input type="text" placeholder="Hospital name or patient details"/>
+        </div>
+        <div class="form-group"><label>Message</label>
+          <textarea placeholder="Any additional notes or requirements..."></textarea>
+        </div>
+        <button class="btn btn-red" style="width:100%;justify-content:center;padding:14px;font-size:0.95rem;" onclick="submitForm()">
+          Submit Request
+        </button>
+        <p style="font-size:0.76rem;color:var(--ink-soft);text-align:center;margin-top:10px;">
+          For emergencies, call directly: <a href="tel:+917032383777" style="color:var(--red);font-weight:600;">+91 70323 83777</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <img src="nigl-logo.jpeg" alt="NIGL" style="height:44px;width:44px;object-fit:contain;"/>
+          <span class="footer-logo-text">NIGL <span>Blood Centre</span></span>
+        </div>
+        <p class="footer-tagline">A hospital-based blood bank at Renova NIGL Hospital, Banjara Hills. Part of the Renova Group — serving Hyderabad with safe, quality blood banking.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Blood Availability</a></li>
+          <li><a href="#services">Our Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-ci"><span class="ic">📍</span><span>Plot No. 344A, Road No. 12, Banjara Hills, Hyderabad – 500034</span></div>
+        <div class="footer-ci"><span class="ic">📞</span><span><a href="tel:+917032383777" style="color:rgba(255,130,150,1);text-decoration:none;">+91 70323 83777</a></span></div>
+        <div class="footer-ci"><span class="ic">⏰</span><span>Blood Bank Open 24 × 7</span></div>
+        <div class="footer-ci"><span class="ic">✉️</span><span>info.nigl@renovahospitals.com</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 NIGL Blood Centre · Renova NIGL Hospital. All rights reserved.</p>
+      <p>Made with ❤ for Hyderabad &nbsp;|&nbsp; <a href="#home">Back to top ↑</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Active nav on scroll — fixed version
+  const sectionIds = ['home','about','services','contact'];
+  const navAnchors = document.querySelectorAll('.nav-links a[data-section]');
+
+  function updateActiveNav() {
+    let current = 'home';
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 90) current = id;
+    });
+    navAnchors.forEach(a => a.classList.toggle('active', a.dataset.section === current));
+  }
+  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  updateActiveNav();
+
+  // Donate / Request form
+  function openForm(type) {
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => switchForm(type), 700);
+  }
+
+  function switchForm(type) {
+    const isDonate = type === 'donate';
+    document.getElementById('formTitle').textContent = isDonate ? 'Donate Blood' : 'Request Blood';
+    document.getElementById('formSub').textContent = isDonate
+      ? 'Register your interest to donate at NIGL Blood Centre. Our team will confirm your appointment.'
+      : 'Submit a blood request. Our team will contact you immediately to confirm availability.';
+    document.getElementById('btnDonate').classList.toggle('active', isDonate);
+    document.getElementById('btnRequest').classList.toggle('active', !isDonate);
+    document.getElementById('unitsGroup').style.display = isDonate ? 'none' : 'block';
+    document.getElementById('hospitalGroup').style.display = isDonate ? 'none' : 'block';
+  }
+
+  function submitForm() {
+    alert('Thank you! Our team will contact you shortly.\n\nFor urgent needs please call: +91 70323 83777');
+  }
+</script>
+</body>
+</html>
