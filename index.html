@@ -261,16 +261,17 @@
       <h3 id="modalTitle">Donate Blood</h3>
       <p class="modal-sub" id="modalSub">Register your interest to donate at NIGL Blood Centre. We'll confirm your appointment shortly.</p>
       <div class="form-type-btns">
-        <button class="type-btn active" id="btnDonate" onclick="switchForm('donate')">❤ Donate Blood</button>
-        <button class="type-btn" id="btnRequest" onclick="switchForm('request')">🩸 Request Blood</button>
+        <button class="type-btn active" id="btnDonate" onclick="switchForm('donate')">❤ Donate</button>
+        <button class="type-btn" id="btnRequest" onclick="switchForm('request')">🩸 Request</button>
+        <button class="type-btn" id="btnCamp" onclick="switchForm('camp')">🏕️ Camp</button>
       </div>
       <div class="form-row">
         <div class="form-group"><label>Full Name *</label><input type="text" id="fName" placeholder="Your full name"/></div>
         <div class="form-group"><label>Phone *</label><input type="tel" id="fPhone" placeholder="+91 XXXXX XXXXX"/></div>
       </div>
       <div class="form-row">
-        <div class="form-group"><label>Blood Group</label>
-          <select id="fBlood">
+        <div class="form-group"><label>Blood Group *</label>
+          <select id="fBlood" required>
             <option value="">Select group</option>
             <option>A+</option><option>A−</option><option>B+</option><option>B−</option>
             <option>O+</option><option>O−</option><option>AB+</option><option>AB−</option>
@@ -282,9 +283,59 @@
         <label>Units Required</label>
         <input type="number" id="fUnits" placeholder="e.g. 2" min="1" max="10"/>
       </div>
-      <div class="form-group" id="hospitalGroup" style="display:none;">
-        <label>Hospital / Patient Name</label>
-        <input type="text" id="fHospital" placeholder="Hospital name or patient details"/>
+      <div id="hospitalGroup" style="display:none;">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Hospital Name *</label>
+            <input type="text" id="fHospital" placeholder="Hospital name" required/>
+          </div>
+          <div class="form-group">
+            <label>Patient Name *</label>
+            <input type="text" id="fPatient" placeholder="Patient full name" required/>
+          </div>
+        </div>
+      </div>
+      <!-- Camp fields -->
+      <div id="campGroup" style="display:none;">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Organisation Name *</label>
+            <input type="text" id="fOrg" placeholder="Company / College / Community name"/>
+          </div>
+          <div class="form-group">
+            <label>Camp Type *</label>
+            <select id="fCampType">
+              <option value="">Select type</option>
+              <option>Corporate</option>
+              <option>College / University</option>
+              <option>Community / Residential</option>
+              <option>Religious / Temple / Church</option>
+              <option>NGO / Trust</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Preferred Date *</label>
+            <input type="date" id="fCampDate"/>
+          </div>
+          <div class="form-group">
+            <label>Camp Location / Address *</label>
+            <input type="text" id="fCampLocation" placeholder="Full address of camp venue"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Expected Number of Donors</label>
+          <select id="fDonors">
+            <option value="">Select range</option>
+            <option>10 – 25</option>
+            <option>25 – 50</option>
+            <option>50 – 100</option>
+            <option>100 – 200</option>
+            <option>200+</option>
+          </select>
+        </div>
       </div>
       <div class="form-group">
         <label>Message / Additional Info</label>
@@ -318,6 +369,7 @@
       <li><a href="#home"     data-section="home"     class="active">Home</a></li>
       <li><a href="#about"    data-section="about">About</a></li>
       <li><a href="#services" data-section="services">Services</a></li>
+      <li><a href="#gallery"  data-section="gallery">Gallery</a></li>
       <li><a href="#contact"  data-section="contact">Contact</a></li>
     </ul>
     <button class="hamburger" id="menuBtn" aria-label="Toggle menu">
@@ -336,6 +388,7 @@
       <div class="hero-btns">
         <button class="btn btn-primary" onclick="openModal('donate')">❤ &nbsp;Donate Now</button>
         <button class="btn btn-outline" onclick="openModal('request')">🩸 &nbsp;Request Blood</button>
+        <button class="btn btn-outline" onclick="openModal('camp')">🏕️ &nbsp;Request a Camp</button>
       </div>
     </div>
   </div>
@@ -482,7 +535,7 @@
 </section>
 
 <!-- ══ GALLERY ════════════════════════════════════════════ -->
-<section class="section gallery">
+<section class="section gallery" id="gallery">
   <div class="section-inner">
     <span class="section-tag">Our Community</span>
     <h2 class="section-title">Donation Camps &amp; Events</h2>
@@ -505,6 +558,7 @@
   <div class="cta-btns">
     <button class="btn btn-primary" onclick="openModal('donate')">❤ &nbsp;Donate Blood</button>
     <button class="btn btn-outline" onclick="openModal('request')">🩸 &nbsp;Request Blood</button>
+    <button class="btn btn-outline" onclick="openModal('camp')">🏕️ &nbsp;Request a Camp</button>
   </div>
 </section>
 
@@ -523,14 +577,13 @@
         <div class="contact-card">
           <h4>📞 Phone &amp; Email</h4>
           <div class="contact-item"><span class="ci">📞</span><p><a href="tel:+919006448899">+91 90064 48899</a></p></div>
-          <div class="contact-item"><span class="ci">✉️</span><p><a href="mailto:info@niglbloodcentre.com">info@niglbloodcentre.com</a></p></div>
+          <div class="contact-item"><span class="ci">✉️</span><p><a href="/cdn-cgi/l/email-protection#472e29212807292e202b252b2828232422293335226924282a"><span class="__cf_email__" data-cfemail="ddb4b3bbb29db3b4bab1bfb1b2b2b9beb8b3a9afb8f3beb2b0">[email&#160;protected]</span></a></p></div>
         </div>
         <div class="contact-card">
           <h4>⏰ Working Hours</h4>
           <span class="open-badge">Open Now</span>
           <div style="margin-top:12px;">
-            <div class="hours-row"><span class="day">Blood Bank</span><span class="time">24 Hours · 7 Days</span></div>
-            <div class="hours-row"><span class="day">Emergency Issue</span><span class="time">Always Available</span></div>
+            <div class="hours-row"><span class="day">Blood Bank</span><span class="time">24 Hoursv>
             <div class="hours-row"><span class="day">Donor Registration</span><span class="time">8:00 AM – 8:00 PM</span></div>
             <div class="hours-row"><span class="day">Camp Enquiries</span><span class="time">9:00 AM – 6:00 PM</span></div>
           </div>
@@ -585,7 +638,7 @@
         <div class="footer-ci"><span class="ic">📍</span><span>Plot No. 345A, MLA Colony, Road No. 12, Opp. Omega Hospital, Banjara Hills, Hyderabad – 500034</span></div>
         <div class="footer-ci"><span class="ic">📞</span><span><a href="tel:+919006448899" style="color:rgba(255,130,150,1);text-decoration:none;">+91 90064 48899</a></span></div>
         <div class="footer-ci"><span class="ic">⏰</span><span>Blood Bank Open 24 × 7</span></div>
-        <div class="footer-ci"><span class="ic">✉️</span><span><a href="mailto:info@niglbloodcentre.com">info@niglbloodcentre.com</a></span></div>
+        <div class="footer-ci"><span class="ic">✉️</span><span><a href="/cdn-cgi/l/email-protection#137a7d757c537d7a747f717f7c7c7770767d6761763d707c7e"><span class="__cf_email__" data-cfemail="f891969e97b896919f949a9497979c9b9d968c8a9dd69b9795">[email&#160;protected]</span></a></span></div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -595,7 +648,7 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── Mobile nav ──
   const menuBtn = document.getElementById('menuBtn');
   const navLinks = document.getElementById('navLinks');
@@ -603,7 +656,7 @@
   navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 
   // ── Active nav on scroll ──
-  const sectionIds = ['home','about','services','contact'];
+  const sectionIds = ['home','about','services','gallery','contact'];
   const navAnchors = document.querySelectorAll('.nav-links a[data-section]');
   function updateActiveNav() {
     let current = 'home';
@@ -641,15 +694,32 @@
 
   function switchForm(type) {
     currentFormType = type;
-    const isDonate = type === 'donate';
-    document.getElementById('modalTitle').textContent = isDonate ? 'Donate Blood' : 'Request Blood';
-    document.getElementById('modalSub').textContent = isDonate
-      ? 'Register your interest to donate at NIGL Blood Centre. We\'ll confirm your appointment shortly.'
-      : 'Submit a blood request. Our team will contact you immediately to confirm availability.';
+    const isDonate  = type === 'donate';
+    const isRequest = type === 'request';
+    const isCamp    = type === 'camp';
+
+    const titles = { donate: 'Donate Blood', request: 'Request Blood', camp: 'Request a Blood Donation Camp' };
+    const subs   = {
+      donate:  'Register your interest to donate at NIGL Blood Centre. We\'ll confirm your appointment shortly.',
+      request: 'Submit a blood request. Our team will contact you immediately to confirm availability.',
+      camp:    'We\'ll organise a blood donation camp at your location. Fill in the details below and our team will get in touch.'
+    };
+
+    document.getElementById('modalTitle').textContent = titles[type];
+    document.getElementById('modalSub').textContent   = subs[type];
+
     document.getElementById('btnDonate').classList.toggle('active', isDonate);
-    document.getElementById('btnRequest').classList.toggle('active', !isDonate);
-    document.getElementById('unitsGroup').style.display = isDonate ? 'none' : 'block';
-    document.getElementById('hospitalGroup').style.display = isDonate ? 'none' : 'block';
+    document.getElementById('btnRequest').classList.toggle('active', isRequest);
+    document.getElementById('btnCamp').classList.toggle('active', isCamp);
+
+    // Show/hide field groups
+    document.getElementById('unitsGroup').style.display    = isRequest ? 'block' : 'none';
+    document.getElementById('hospitalGroup').style.display = isRequest ? 'block' : 'none';
+    document.getElementById('campGroup').style.display     = isCamp    ? 'block' : 'none';
+
+    // Hide blood group + date row for camp (not needed)
+    const bloodRow = document.getElementById('fBlood').closest('.form-row');
+    bloodRow.style.display = isCamp ? 'none' : 'grid';
   }
 
   function submitForm() {
@@ -658,36 +728,75 @@
     const blood   = document.getElementById('fBlood').value;
     const date    = document.getElementById('fDate').value;
     const units   = document.getElementById('fUnits').value;
-    const hosp    = document.getElementById('fHospital').value.trim();
+    const hosp    = document.getElementById('fHospital') ? document.getElementById('fHospital').value.trim() : '';
+    const patient = document.getElementById('fPatient') ? document.getElementById('fPatient').value.trim() : '';
     const message = document.getElementById('fMessage').value.trim();
 
     if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+    if (currentFormType === 'request') {
+      if (!blood)   { alert('Please select a blood group.'); return; }
+      if (!hosp)    { alert('Please enter the hospital name.'); return; }
+      if (!patient) { alert('Please enter the patient name.'); return; }
+    }
+    if (currentFormType === 'camp') {
+      const org      = document.getElementById('fOrg').value.trim();
+      const campType = document.getElementById('fCampType').value;
+      const campDate = document.getElementById('fCampDate').value;
+      const campLoc  = document.getElementById('fCampLocation').value.trim();
+      if (!org)      { alert('Please enter the organisation name.'); return; }
+      if (!campType) { alert('Please select a camp type.'); return; }
+      if (!campDate) { alert('Please select a preferred date.'); return; }
+      if (!campLoc)  { alert('Please enter the camp location.'); return; }
+    }
 
-    const type = currentFormType === 'donate' ? 'Donation Request' : 'Blood Request';
+    const typeLabels = { donate: 'Donation Request', request: 'Blood Request', camp: 'Camp Request' };
+    const typeLabel = typeLabels[currentFormType];
 
     // Build WhatsApp message
-    let wa = `*NIGL Blood Centre – ${type}*\n\n`;
+    let wa = `*NIGL Blood Centre – ${typeLabel}*\n\n`;
     wa += `👤 *Name:* ${name}\n`;
     wa += `📞 *Phone:* ${phone}\n`;
-     if (blood) wa += `🩸 *Blood Group:* ${blood}\n`;
-    if (date)  wa += `📅 *Date:* ${date}\n`;
-    if (units) wa += `🔢 *Units Required:* ${units}\n`;
-    if (hosp)  wa += `🏥 *Hospital/Patient:* ${hosp}\n`;
+
+    if (currentFormType === 'request') {
+      if (blood)   wa += `🩸 *Blood Group:* ${blood}\n`;
+      if (date)    wa += `📅 *Date:* ${date}\n`;
+      if (units)   wa += `🔢 *Units Required:* ${units}\n`;
+      if (hosp)    wa += `🏥 *Hospital:* ${hosp}\n`;
+      if (patient) wa += `🧑 *Patient:* ${patient}\n`;
+    } else if (currentFormType === 'donate') {
+      if (blood) wa += `🩸 *Blood Group:* ${blood}\n`;
+      if (date)  wa += `📅 *Preferred Date:* ${date}\n`;
+    } else if (currentFormType === 'camp') {
+      const org      = document.getElementById('fOrg').value.trim();
+      const campType = document.getElementById('fCampType').value;
+      const campDate = document.getElementById('fCampDate').value;
+      const campLoc  = document.getElementById('fCampLocation').value.trim();
+      const donors   = document.getElementById('fDonors').value;
+      wa += `🏢 *Organisation:* ${org}\n`;
+      wa += `🏕️ *Camp Type:* ${campType}\n`;
+      wa += `📅 *Preferred Date:* ${campDate}\n`;
+      wa += `📍 *Location:* ${campLoc}\n`;
+      if (donors) wa += `👥 *Expected Donors:* ${donors}\n`;
+    }
     if (message) wa += `📝 *Notes:* ${message}\n`;
- 
+
     const waURL = `https://wa.me/919006448899?text=${encodeURIComponent(wa)}`;
     window.open(waURL, '_blank');
- 
+
     // Show success
     document.getElementById('formContent').style.display = 'none';
     document.getElementById('successBox').style.display = 'flex';
- 
+
     // Reset form
-    ['fName','fPhone','fDate','fUnits','fHospital','fMessage'].forEach(id => {
+    ['fName','fPhone','fDate','fUnits','fHospital','fPatient','fMessage','fOrg','fCampDate','fCampLocation'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
     document.getElementById('fBlood').selectedIndex = 0;
+    const campTypeEl = document.getElementById('fCampType');
+    const donorsEl   = document.getElementById('fDonors');
+    if (campTypeEl) campTypeEl.selectedIndex = 0;
+    if (donorsEl)   donorsEl.selectedIndex   = 0;
   }
 </script>
 </body>
